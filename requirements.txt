@@ -1,1 +1,8 @@
 fastapi[all]
+neo4j
+openai
+langchain
+pydantic
+langgraph
+neo4j
+chromadb
