@@ -6,3 +6,4 @@ pydantic
 langgraph
 neo4j
 chromadb
+langchain_openai
