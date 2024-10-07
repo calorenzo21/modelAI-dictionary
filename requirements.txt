@@ -7,3 +7,4 @@ langgraph
 neo4j
 chromadb
 langchain_openai
+langchain_community
