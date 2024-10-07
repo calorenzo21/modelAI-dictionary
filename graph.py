@@ -4,9 +4,6 @@ from state import GraphState
 from nodes import prompt_template, unrecognized_node, router_request, biography_qa, list_qa, router_question, multimedia_qa, similiraty_qa, comparison_qa
 import os
 load_dotenv(".env", override=True)
-    
-print(os.getenv("GEMINI_API_KEY"))
-print(os.getenv("OPENAI_API_KEY"))
 
 # Inicializar el grafo
 workflow = StateGraph(GraphState)

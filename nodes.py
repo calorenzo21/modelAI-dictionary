@@ -132,7 +132,7 @@ def comparison_qa(state: GraphState):
     ''' Returns a dictionary of at least one of the GraphState '''
     ''' Invoke a Graph QA Chain to answer a comparison question'''
     
-    print("---SIMILARITY QA---")
+    print("---COMPARISON QA---")
     question = state["question"]
     
     graph_qa_chain = get_graph_qa_chain_comparison(state)
