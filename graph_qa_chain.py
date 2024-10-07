@@ -2,7 +2,6 @@ import os
 #from GraphCypherChain import GraphCypherQAChain
 from langchain.chains import GraphCypherQAChain
 from langchain_community.graphs import Neo4jGraph
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts.prompt import PromptTemplate
 from state import GraphState
 from langchain_openai import ChatOpenAI

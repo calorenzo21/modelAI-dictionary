@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from classify_question import question_classifier
+from graph import app as graph_app
 
 app = FastAPI()
 
@@ -25,9 +25,17 @@ async def root():
 @app.post("/ask") 
 async def ask_question(request: QuestionRequest):
     try:
-        question_type = question_classifier.invoke({"question": request.question}).question_type
+        # Invocar el grafo con la pregunta proporcionada
+        graph_qa_result = graph_app.invoke({"question": request.question})
+
+         # Extraer solo los campos query y result
+        query = graph_qa_result['response'].get('query')
+        result = graph_qa_result['response'].get('result')
+        question_type = graph_qa_result['type']
 
         return {
+            "query": query,
+            "result": result,
             "type": question_type,
         }
     except Exception as e:
