@@ -1,6 +1,6 @@
 import os
-#from GraphCypherChain import GraphCypherQAChain
-from langchain.chains import GraphCypherQAChain
+from graph_cypher_chain import GraphCypherQAChain
+# from langchain.chains import GraphCypherQAChain
 from langchain_community.graphs import Neo4jGraph
 from langchain.prompts.prompt import PromptTemplate
 from state import GraphState

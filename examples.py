@@ -2,7 +2,7 @@ examples = [
     # Preguntas Descriptivas Sobre Autor
     {
         "question": "¿Cuál es el contexto de John Doe?",
-        "query": '''CALL db.index.fulltext.queryNodes('fullTextAuthorNames', 'Teresa Coraspe') YIELD node AS a MATCH (a)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH a, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN a.fullName AS titulo, a.text AS contexto, {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}} AS multimedia'''
+        "query": '''CALL db.index.fulltext.queryNodes('fullTextAuthorNames', 'John Doe') YIELD node AS a MATCH (a)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH a, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN a.fullName AS titulo, a.text AS contexto, {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}} AS multimedia'''
     },
     {
         "question": "¿Cuándo nació el autor John Doe?",
