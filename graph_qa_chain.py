@@ -1,6 +1,5 @@
 import os
 from graph_cypher_chain import GraphCypherQAChain
-# from langchain.chains import GraphCypherQAChain
 from langchain_community.graphs import Neo4jGraph
 from langchain.prompts.prompt import PromptTemplate
 from state import GraphState
@@ -79,35 +78,35 @@ The JSON object should contain the following structure:
   - `title`: The title or identifier for each item.
   - `text`: A description or summary of the item based on the context.
   - `multimedia`: A list of multimedia links categorized into:
-    - `images`: List of image URLs (if any).
-    - `videos`: List of video URLs (if any).
-    - `audios`: List of audio URLs (if any).
-    - `documents`: List of document URLs (if any).
+      - `images`: List of image URLs with their descriptions (if any).
+      - `videos`: List of video URLs with their descriptions (if any).
+      - `audios`: List of audio URLs with their descriptions (if any).
+      - `documents`: List of document URLs with their descriptions (if any).
 
 If the provided information is insufficient to answer the question, set the `text` field to "No sé la respuesta" (I don't know the answer) in the JSON.
 
 ### Example JSON output:
 {{
-  "title": "Obras de Ciencia Ficción de Autor X",
+  "title": "Titulo Relacionado al Listado Ejm (Obras de Ciencia Ficción de Autor X)",
   "items": [
     {{
       "title": "Título de la Obra 1",
       "text": "Descripción o resumen del elemento basado en el contexto",
       "multimedia": {{
-        "images": ["http://example.com/image1.jpg"],
-        "videos": ["http://example.com/video1.mp4"],
-        "audios": ["http://example.com/audio1.mp3"],
-        "documents": ["http://example.com/doc1.pdf"]
+        "images": [{{"link": "http://example.com/image1.jpg", "description": "Description of image 1"}}],
+        "videos": [{{"link": "http://example.com/video1.mp4", "description": "Description of video 1"}}],
+        "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Description of audio 1"}}],
+        "documents": [{{"link": "http://example.com/doc1.pdf", "description": "Description of document 1"}}]
       }}
     }},
     {{
       "title": "Título de la Obra 2",
       "text": "Descripción o resumen del segundo elemento",
       "multimedia": {{
-        "images": ["http://example.com/image2.jpg"],
-        "videos": [],
-        "audios": ["http://example.com/audio2.mp3"],
-        "documents": []
+        "images": [{{"link": "http://example.com/image1.jpg", "description": "Description of image 1"}}],
+        "videos": [{{"link": "http://example.com/video1.mp4", "description": "Description of video 1"}}],
+        "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Description of audio 1"}}],
+        "documents": [{{"link": "http://example.com/doc1.pdf", "description": "Description of document 1"}}]
       }}
     }}
   ]
