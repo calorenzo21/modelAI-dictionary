@@ -9,7 +9,7 @@ app = FastAPI()
 # Agregar middleware de CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Permite solicitudes desde localhost:3000
+    allow_origins=["http://localhost:3000", "https://letrascopio.vercel.app"],  # Permite solicitudes desde localhost:3000
     allow_credentials=True,
     allow_methods=["*"],  # Permite todos los métodos HTTP
     allow_headers=["*"],  # Permite todos los headers
