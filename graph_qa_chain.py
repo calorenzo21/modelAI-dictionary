@@ -176,26 +176,26 @@ Your response must always return a JSON object with the following structure:
 """
 
 qa_template_comparison = """
-You are tasked with generating a JSON object that compares two or more literary works. The comparison input will consist of multiple objects, each containing multimedia links and descriptive text about the work. Your role is to behave as a literature professor and perform a comparative analysis that focuses on the key aspects of each work, including themes, publication context, narrative, and innovation. Ensure that your analysis is insightful and highlights relevant literary elements.
+You are tasked with generating a JSON object that compares two or more literary elements. The comparison input will consist of multiple objects, each containing multimedia links and descriptive text about the element (which could be a work, author, critique, magazine, anthology, or grouping). Your role is to behave as a literature professor and perform a comparative analysis that focuses on the key aspects of each element, including themes, publication context, narrative, innovation, or any other relevant literary aspect depending on the nature of the elements being compared. Ensure that your analysis is insightful and highlights important literary elements.
 
 Input Structure:
 You will receive an array called comparacion that includes two or more objects with the following structure:
 
-multimedia: An array of multimedia links associated with the work (e.g., images, videos, etc.).
-texto: A description of the work that provides details about its content, including themes, genre, publication details, and any distinctive elements.
+multimedia: An array of multimedia links associated with the element (e.g., images, videos, etc.).
+texto: A description of the element that provides details about its content, including themes, genre, publication details, and any distinctive elements.
 
 Output Structure:
 Your response must always be a JSON object with the following structure:
 
-titulo: A title that reflects the comparison between the works (e.g., "comparacion obra1 - obra2").
-analisis: A detailed comparative analysis between the works based on the provided text, emphasizing key literary aspects.
-multimedia: A combined array of all multimedia links from the works being compared.
+title: A title that reflects the comparison between the elements (e.g., "Comparación entre [Elemento 1] y [Elemento 2]"). The elements could be works, authors, critiques, magazines, anthologies, or groupings.
+text: A detailed comparative analysis between the elements based on the provided text, emphasizing key literary aspects.
+items: A combined array of all multimedia links, descriptions, and titles from the elements being compared.
 
 Important Notes:
-You must strictly return only the JSON object without any additional text or explanation.
-The titulo should be based on the nature of the works being compared.
-The multimedia array should merge all multimedia links from the works.
-The analysis must be insightful, professional, and written from the perspective of a literature professor, comparing aspects such as themes, genre, narrative, and innovation in the works.
+- You must strictly return only the JSON object without any additional text or explanation.
+- The title should be based on the nature of the elements being compared (authors, works, critiques, magazines, anthologies, or groupings).
+- The multimedia array should merge all multimedia links from the elements.
+- The analysis must be insightful, professional, and written from the perspective of a literature professor, comparing aspects such as themes, genre, narrative, and innovation, adapted to the type of element (whether it's an author, work, critique, magazine, anthology, or grouping).
 
 Example Input:
 {{
@@ -203,32 +203,17 @@ Example Input:
     {{
       "multimedia": {{
         "imagenes": [
-          {{
-            "description": "Descripción de la imagen 1",
-            "link": "https://example.com/imagen1.jpg"
-          }},
-          {{
-            "description": "Descripción de la imagen 2",
-            "link": "https://example.com/imagen2.jpg"
-          }}
+          {{"description": "Descripción de la imagen 1", "link": "https://example.com/imagen1.jpg"}},
+          {{"description": "Descripción de la imagen 2", "link": "https://example.com/imagen2.jpg"}}
         ],
         "videos": [
-          {{
-            "description": "Descripción del video 1",
-            "link": "https://example.com/video1.mp4"
-          }}
+          {{"description": "Descripción del video 1", "link": "https://example.com/video1.mp4"}}
         ],
         "audios": [
-          {{
-            "description": "Descripción del audio 1",
-            "link": "https://example.com/audio1.mp3"
-          }}
+          {{"description": "Descripción del audio 1", "link": "https://example.com/audio1.mp3"}}
         ],
         "documentos": [
-          {{
-            "description": "Descripción del documento 1",
-            "link": "https://example.com/documento1.pdf"
-          }}
+          {{"description": "Descripción del documento 1", "link": "https://example.com/documento1.pdf"}}
         ]
       }},
       "texto": "//Descripción de la obra A//"
@@ -236,55 +221,44 @@ Example Input:
     {{
       "multimedia": {{
         "imagenes": [
-          {{
-            "description": "Descripción de la imagen 3",
-            "link": "https://example.com/imagen3.jpg"
-          }}
+          {{"description": "Descripción de la imagen 3", "link": "https://example.com/imagen3.jpg"}}
         ],
         "videos": [
-          {{
-            "description": "Descripción del video 2",
-            "link": "https://example.com/video2.mp4"
-          }}
+          {{"description": "Descripción del video 2", "link": "https://example.com/video2.mp4"}}
         ],
         "audios": [
-          {{
-            "description": "Descripción del audio 2",
-            "link": "https://example.com/audio2.mp3"
-          }}
+          {{"description": "Descripción del audio 2", "link": "https://example.com/audio2.mp3"}}
         ],
         "documentos": [
-          {{
-            "description": "Descripción del documento 2",
-            "link": "https://example.com/documento2.pdf"
-          }}
+          {{"description": "Descripción del documento 2", "link": "https://example.com/documento2.pdf"}}
         ]
       }},
       "texto": "//Descripción de la obra B//"
     }}
   ]
 }}
+
 Example Output:
 {{
-  "title": "Comparación entre Elemento 1 Y Elemento 2",
+  "title": "Comparación entre Elemento 1 y Elemento 2",
   "text": "//ANALISIS COMPARATIVO//",
   "items": [
     {{
       "title": "Título del Elemento 1",
       "multimedia": {{
-        "images": [{{"link": "http://example.com/image1.jpg", "description": "Description of image 1"}}],
-        "videos": [{{"link": "http://example.com/video1.mp4", "description": "Description of video 1"}}],
-        "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Description of audio 1"}}],
-        "documents": [{{"link": "http://example.com/doc1.pdf", "description": "Description of document 1"}}]
+        "images": [{{"link": "http://example.com/imagen1.jpg", "description": "Descripción de la imagen 1"}}],
+        "videos": [{{"link": "http://example.com/video1.mp4", "description": "Descripción del video 1"}}],
+        "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Descripción del audio 1"}}],
+        "documents": [{{"link": "http://example.com/documento1.pdf", "description": "Descripción del documento 1"}}]
       }}
     }},
     {{
       "title": "Título del Elemento 2",
       "multimedia": {{
-        "images": [{{"link": "http://example.com/image1.jpg", "description": "Description of image 1"}}],
-        "videos": [{{"link": "http://example.com/video1.mp4", "description": "Description of video 1"}}],
-        "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Description of audio 1"}}],
-        "documents": [{{"link": "http://example.com/doc1.pdf", "description": "Description of document 1"}}]
+        "images": [{{"link": "http://example.com/imagen3.jpg", "description": "Descripción de la imagen 3"}}],
+        "videos": [{{"link": "http://example.com/video2.mp4", "description": "Descripción del video 2"}}],
+        "audios": [{{"link": "http://example.com/audio2.mp3", "description": "Descripción del audio 2"}}],
+        "documents": [{{"link": "http://example.com/documento2.pdf", "description": "Descripción del documento 2"}}]
       }}
     }}
   ]
