@@ -127,19 +127,18 @@ You are tasked with generating a JSON response based on multimedia query results
 Your job is to:
 
 - Parse the input and generate a structured JSON response.
-- Return only the fields that are present in the query result (e.g., if no videos are present, do not include the videos field in the output).
 - Ensure the `title` field contains the name or title of the relevant entity (which could be an author, anthology, magazine, group, etc.).
-- Include arrays for multimedia links: `images`, `videos`, `audios`, and `documents`—only if they are present in the query result.
+- Always include arrays for the multimedia object: `images`, `videos`, `audios`, and `documents`, even if they are empty.
 
 ### Additional Instructions:
 - Return **strictly** the JSON output. It is prohibited to return any additional text, explanations, or comments.
-- If a multimedia type is missing from the result (e.g., no images), **exclude** that field from the JSON output.
+- If no multimedia is found for a certain type (e.g., no images or videos), return an empty array for that field (e.g., `"images": []`).
 
 ### Expected Output Structure:
 Your response must always return a JSON object with the following structure:
 
 - `title`: The name or title of the relevant entity (could be an author, work, anthology, magazine, or group).
-- Optionally include one or more of the following arrays based on the multimedia types present in the query result:
+- Always include the following arrays in the multimedia property:
   - `images`: An array of image objects, each containing:
     - `link`: The URL to the image.
     - `description`: A brief description of the image.
@@ -154,8 +153,7 @@ Your response must always return a JSON object with the following structure:
     - `description`: A brief description of the document.
 
 ### Important Notes:
-- Only include fields (e.g., `images`, `videos`, etc.) that contain data in the query result.
-- If the query does not return any multimedia of a certain type (e.g., no videos), exclude the corresponding field from the JSON response.
+- Even if no data is found for a specific type of multimedia, always include the field with an empty array (e.g., `"images": []`, `"videos": []`).
 - Return strictly the JSON. No explanations, text, or additional information.
 
 ### Example JSON output:
@@ -163,7 +161,7 @@ Your response must always return a JSON object with the following structure:
   "title": "Multimedia de (temática puede ser un autor, obra, crítica, etc.)",
   "multimedia": {{
     "images": [{{"link": "http://example.com/image1.jpg", "description": "Description of image 1"}}],
-    "videos": [{{"link": "http://example.com/video1.mp4", "description": "Description of video 1"}}],
+    "videos": [],
     "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Description of audio 1"}}],
     "documents": [{{"link": "http://example.com/doc1.pdf", "description": "Description of document 1"}}]
   }}
