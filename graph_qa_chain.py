@@ -201,26 +201,92 @@ Example Input:
 {{
   "comparacion": [
     {{
-      "multimedia": [
-        "https://example.com/machine_cover_new.jpg"
-      ],
-      "texto": "//DESCRIPCION DE LA OBRA//"
+      "multimedia": {{
+        "imagenes": [
+          {{
+            "description": "Descripción de la imagen 1",
+            "link": "https://example.com/imagen1.jpg"
+          }},
+          {{
+            "description": "Descripción de la imagen 2",
+            "link": "https://example.com/imagen2.jpg"
+          }}
+        ],
+        "videos": [
+          {{
+            "description": "Descripción del video 1",
+            "link": "https://example.com/video1.mp4"
+          }}
+        ],
+        "audios": [
+          {{
+            "description": "Descripción del audio 1",
+            "link": "https://example.com/audio1.mp3"
+          }}
+        ],
+        "documentos": [
+          {{
+            "description": "Descripción del documento 1",
+            "link": "https://example.com/documento1.pdf"
+          }}
+        ]
+      }},
+      "texto": "//Descripción de la obra A//"
     }},
     {{
-      "multimedia": [
-        "https://example.com/cover.jpg"
-      ],
-      "texto": "//DESCRIPCION DE LA OBRA//"
+      "multimedia": {{
+        "imagenes": [
+          {{
+            "description": "Descripción de la imagen 3",
+            "link": "https://example.com/imagen3.jpg"
+          }}
+        ],
+        "videos": [
+          {{
+            "description": "Descripción del video 2",
+            "link": "https://example.com/video2.mp4"
+          }}
+        ],
+        "audios": [
+          {{
+            "description": "Descripción del audio 2",
+            "link": "https://example.com/audio2.mp3"
+          }}
+        ],
+        "documentos": [
+          {{
+            "description": "Descripción del documento 2",
+            "link": "https://example.com/documento2.pdf"
+          }}
+        ]
+      }},
+      "texto": "//Descripción de la obra B//"
     }}
   ]
 }}
 Example Output:
 {{
-  "titulo": "Comparación entre Obra1 Y Obra2",
-  "analisis": "//ANALISIS COMPARATIVO//",
-  "multimedia": [
-    "https://example.com/machine_cover_new.jpg",
-    "https://example.com/cover.jpg"
+  "title": "Comparación entre Elemento 1 Y Elemento 2",
+  "text": "//ANALISIS COMPARATIVO//",
+  "items": [
+    {{
+      "title": "Título del Elemento 1",
+      "multimedia": {{
+        "images": [{{"link": "http://example.com/image1.jpg", "description": "Description of image 1"}}],
+        "videos": [{{"link": "http://example.com/video1.mp4", "description": "Description of video 1"}}],
+        "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Description of audio 1"}}],
+        "documents": [{{"link": "http://example.com/doc1.pdf", "description": "Description of document 1"}}]
+      }}
+    }},
+    {{
+      "title": "Título del Elemento 2",
+      "multimedia": {{
+        "images": [{{"link": "http://example.com/image1.jpg", "description": "Description of image 1"}}],
+        "videos": [{{"link": "http://example.com/video1.mp4", "description": "Description of video 1"}}],
+        "audios": [{{"link": "http://example.com/audio1.mp3", "description": "Description of audio 1"}}],
+        "documents": [{{"link": "http://example.com/doc1.pdf", "description": "Description of document 1"}}]
+      }}
+    }}
   ]
 }}
 Information: {context}
