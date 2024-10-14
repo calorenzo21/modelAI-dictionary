@@ -211,6 +211,15 @@ examples = [
         "question": "¿Qué obras ha creado John Doe?",
         "query": "CALL db.index.fulltext.queryNodes('fullTextAuthorNames', 'John Doe') YIELD node AS a MATCH (a)-[:CREATED]->(w:Work) OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH a.fullName AS tituloAutor, w.text AS textoObra, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia WITH tituloAutor, collect({{texto: textoObra, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}}) AS obras RETURN {{titulo: tituloAutor, obras: obras}} AS result"
     },
+    {
+        "question": "¿Qué obras han sido escritas por mujeres?",
+        "query": "MATCH (a)-[:CREATED]->(w:Work) WHERE a.gender = 'Femenino' OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH a.fullName AS tituloAutor, w.title AS tituloObra, w.text AS textoObra, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, autor: tituloAutor, texto: textoObra, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result"
+    },
+    {
+        "question": "¿Qué obras han sido escritas por hombres?",
+        "query": "MATCH (a)-[:CREATED]->(w:Work) WHERE a.gender = 'Masculino' OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH a.fullName AS tituloAutor, w.title AS tituloObra, w.text AS textoObra, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, autor: tituloAutor, texto: textoObra, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result"
+    },
+
 
     # Preguntas Relación (Criticism)-[:CRITICIZES_ABOUT]->(Author)
     {
@@ -244,10 +253,10 @@ examples = [
     },
     
     # Pregunta Comparaciones entre Criticas de Obras
-    {
-        "question": "Compara las críticas de The Machine's Awakening con las de The Future Beyond.",
-        "query": ""
-    },
+    # {
+    #     "question": "Compara las críticas de The Machine's Awakening con las de The Future Beyond.",
+    #     "query": ""
+    # },
 
     # Preguntas de Obras Similares
     {
@@ -258,5 +267,19 @@ examples = [
         "question": "Muestrame las obras de John Doe que tratan sobre el inteligencia artificial",
         "query": '''CALL genai.vector.encodeBatch(["inteligencia artificial"], "OpenAI", {{token: 'sk-N6j1NARm-4DyU-yiO9359Rt6pcsULw5sneQbqTplMwT3BlbkFJeg3hBxCMxoG_F06emsOKe4v4DRuOw-OzwXD7RydZIA'}}) YIELD vector CALL db.index.vector.queryNodes("works_description", 5, vector) YIELD node AS work, score WHERE score > 0.9 CALL db.index.fulltext.queryNodes('fullTextAuthorNames', 'John Doe') YIELD node AS a MATCH (a)-[:CREATED]->(work) WHERE work = work OPTIONAL MATCH (work)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH a.fullName AS tituloAutor, work.title AS tituloObra, work.text AS textoObra, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result'''
     },
+    {
+        "question": "Recomiéndame obras sobre el río Orinoco",
+        "query": '''CALL genai.vector.encodeBatch([\"río Orinoco\"], \"OpenAI\", {{token: 'sk-N6j1NARm-4DyU-yiO9359Rt6pcsULw5sneQbqTplMwT3BlbkFJeg3hBxCMxoG_F06emsOKe4v4DRuOw-OzwXD7RydZIA'}}) YIELD vector CALL db.index.vector.queryNodes(\"works_description\", 5, vector) YIELD node AS work, score WHERE score > 0.9 OPTIONAL MATCH (work)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH work.title AS tituloObra, work.text AS textoObra, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result'''
+    },
+    {
+        "question": "Que cosas se han escrito sobre el río Orinoco",
+        "query": '''CALL genai.vector.encodeBatch([\"río Orinoco\"], \"OpenAI\", {{token: 'sk-N6j1NARm-4DyU-yiO9359Rt6pcsULw5sneQbqTplMwT3BlbkFJeg3hBxCMxoG_F06emsOKe4v4DRuOw-OzwXD7RydZIA'}}) YIELD vector CALL db.index.vector.queryNodes(\"works_description\", 5, vector) YIELD node AS work, score WHERE score > 0.9 OPTIONAL MATCH (work)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH work.title AS tituloObra, work.text AS textoObra, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result'''
+    },
+    # Preguntas de Tiempo
+    {
+        "question": "Que obras se han impreso en Upata desde 1940-1990",
+        "query": """CALL db.index.fulltext.queryNodes('fullTextCity', 'Upata') YIELD node AS pub MATCH (w:Work)-[:PUBLISHED_IN]->(p:Publication) WHERE p = pub WITH w, CASE WHEN w.publicationDate =~ '.*\\d{{4}}' THEN toInteger(head(apoc.coll.flatten(apoc.text.regexGroups(w.publicationDate, '(\\d{{4}})')))) ELSE null END AS year WHERE year >= 1940 AND year <= 1990 OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH w.title AS tituloObra, w.text AS textoObra, w.publicationDate AS fechaPublicacion, year, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, fechaPublicacion: fechaPublicacion, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result ORDER BY year"""
+    }   
 ]
+
 
