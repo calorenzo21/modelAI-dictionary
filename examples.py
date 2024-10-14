@@ -283,17 +283,11 @@ examples = [
     {
         "question": "Que obras fueron escritas entre 1940 y 1990",
         "query": """MATCH (w:Work)-[:PUBLISHED_IN]->(p:Publication) WITH w, CASE WHEN w.publicationDate =~ '.*\\d{{4}}' THEN toInteger(head(apoc.coll.flatten(apoc.text.regexGroups(w.publicationDate, '(\\d{{4}})')))) ELSE null END AS year WHERE year >= 1940 AND year <= 1990 OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH w.title AS tituloObra, w.text AS textoObra, w.publicationDate AS fechaPublicacion, year, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, fechaPublicacion: fechaPublicacion, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result ORDER BY year"""
-    },
+    }
     # {
     #     "question": "Recomiendame autores ",
     #     "query": """CALL db.index.fulltext.queryNodes('fullTextCity', 'Upata') YIELD node AS pub MATCH (w:Work)-[:PUBLISHED_IN]->(p:Publication) WHERE p = pub WITH w, CASE WHEN w.publicationDate =~ '.*\\d{{4}}' THEN toInteger(head(apoc.coll.flatten(apoc.text.regexGroups(w.publicationDate, '(\\d{{4}})')))) ELSE null END AS year WHERE year >= 1940 AND year <= 1990 OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH w.title AS tituloObra, w.text AS textoObra, w.publicationDate AS fechaPublicacion, year, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, fechaPublicacion: fechaPublicacion, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result ORDER BY year"""
     # }
-
-    # Preguntas sobre Listado de Autores
-    {
-        "question": "Muestrame autores ",
-        "query": """MATCH (w:Work)-[:PUBLISHED_IN]->(p:Publication) WITH w, CASE WHEN w.publicationDate =~ '.*\\d{4}' THEN toInteger(head(apoc.coll.flatten(apoc.text.regexGroups(w.publicationDate, '(\\d{4})')))) ELSE null END AS year WHERE year >= 1940 AND year <= 1990 OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH w.title AS tituloObra, w.text AS textoObra, w.publicationDate AS fechaPublicacion, year, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, fechaPublicacion: fechaPublicacion, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result ORDER BY year""" 
-    }
 ]
 
 
