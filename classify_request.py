@@ -40,7 +40,7 @@ Crítica: Interpretaciones, lecturas y evaluaciones de obras y autores. Tipo de 
 Grupos literarios, revistas y antologías: Grupos: nombre del grupo, lugar de encuentro (ciudad, municipio), fecha de inicio/finalización, características generales (ideología, tendencia), miembros (nombres, apellidos), publicaciones del grupo (título, año, resumen, autor), actividades del grupo. Revistas: título, fecha del primer y último número, números publicados, lugar de publicación (ciudad, imprenta, editorial), creadores (director, comité editorial), secciones, descripción (temas y géneros dominantes, autores notables), idioma original, multimedia (PDF, JPG). Antologías: autor, título, género, fecha de publicación, lugar de publicación (ciudad, imprenta, editorial), descripción o resumen (autores seleccionados), idioma original, multimedia (PDF, JPG).
 
 Tarea:
-Concéntrate solo en el núcleo de la solicitud y clasifícala en una de las categorías: "valid_request" o "invalid_request". Los verbos específicos utilizados en la solicitud no importan; en su lugar, enfócate en si la solicitud está pidiendo información relacionada con la literatura o no.
+Concéntrate solo en el núcleo de la solicitud y clasifícala en una de las categorías: "valid_request" o "invalid_request". Los verbos específicos utilizados en la solicitud no importan; en su lugar, enfócate en si la solicitud está pidiendo información relacionada con la literatura o no, otra cosa la solicitud puede tener información adicional como instrucciones especifica para generar la respuesta como decirle que tome un rol, o que la respuesta sea redactada de cierta forma, esto no debe ser problema. Recuerda, enfócate en el núcleo de la pregunta y lo que esta solicitando.
 
 Ejemplos:
 examples = [

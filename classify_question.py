@@ -12,7 +12,7 @@ class QuestionType(BaseModel):
         type: The classified type of question.
     """
     
-    question_type: Literal["biography", "list", "comparison", "multimedia", "similarity"] = Field(
+    question_type: Literal["biography", "list", "comparison", "multimedia", "similarity", "summary"] = Field(
         ...,
         description="The classified question or request type"
       )
@@ -26,7 +26,7 @@ llm = ChatOpenAI(
 structured_llm_router = llm.with_structured_output(QuestionType)
 
 system_prompt = """
-Eres un experto en clasificar solicitudes de usuarios en una de las siguientes categorías. Las solicitudes se proporcionarán en español y pueden tomar la forma de preguntas directas o peticiones, como pedir información, dar un comando o solicitar elementos específicos. Necesitas entender la solicitud y clasificarla en una de las categorías que se enumeran a continuación. Devuelve la categoría como una cadena de texto en inglés: "biography", "list", "comparison", "multimedia", "similarity".
+Eres un experto en clasificar solicitudes de usuarios en una de las siguientes categorías. Las solicitudes se proporcionarán en español y pueden tomar la forma de preguntas directas o peticiones, como pedir información, dar un comando o solicitar elementos específicos. Necesitas entender la solicitud y clasificarla en una de las categorías que se enumeran a continuación. Devuelve la categoría como una cadena de texto en inglés: "biography", "list", "comparison", "multimedia", "similarity", "summary".
 
 Tipos de Solicitudes:
 
@@ -73,25 +73,31 @@ Solicitud: "Muéstrame las imágenes del autor John Doe."
 Categoría: "multimedia"
 Solicitud: "¿Puedo escuchar la crítica en audio de El Futuro Más Allá?"
 Categoría: "multimedia"
+
+Preguntas o Solicitudes de Resumen:
+Estas solicitudes requieren un resumen de un elemento en particular o de un conjunto de elementos, como la vida completa de un autor, su carrera literaria o cualquier otro tipo de resumen. Se centra en brindar una síntesis del contenido relevante.
+Ejemplos de solicitudes:
+Solicitud: "Haz un resumen de la carrera literaria de John Doe."
+Categoría: "summary"
+Solicitud: "¿Puedes hacerme un resumen de las obras de John Doe?"
+Categoría: "summary"
+
 Tarea:
-Clasifica la siguiente solicitud en una de las categorías anteriores. Devuelve la categoría como una cadena de texto: "biography", "list", "comparison", "multimedia", "similarity".
+Clasifica la siguiente solicitud en una de las categorías anteriores. Devuelve la categoría como una cadena de texto: "biography", "list", "comparison", "multimedia", "similarity", "summary".
 
 Ejemplos:
 Solicitud: "¿Cuál es el contexto de John Doe?"
-
 Categoría: "biography"
 Solicitud: "Dame una lista de las obras de John Doe."
-
 Categoría: "list"
 Solicitud: "Compara El Futuro Más Allá con El Despertar de la Máquina."
-
 Categoría: "comparison"
 Solicitud: "Muéstrame las imágenes asociadas con John Doe."
-
 Categoría: "multimedia"
 Solicitud: "¿Qué obras son similares a El Despertar de la Máquina?"
-
 Categoría: "similarity"
+Solicitud: "Haz un resumen de la carrera de John Doe."
+Categoría: "summary"
 """
 
 prompt = ChatPromptTemplate.from_messages(

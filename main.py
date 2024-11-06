@@ -29,9 +29,15 @@ async def ask_question(request: QuestionRequest):
         graph_qa_result = graph_app.invoke({"question": request.question})
 
          # Extraer solo los campos query y result
-        query = graph_qa_result['response'].get('query')
-        result = graph_qa_result['response'].get('result')
         question_type = graph_qa_result['type']
+        if (question_type != "model"):
+            query = graph_qa_result['response'].get('query')
+            result = graph_qa_result['response'].get('result')
+
+        else:
+            print("Entro else")
+            query = request.question
+            result = graph_qa_result['response']
 
         return {
             "query": query,

@@ -316,6 +316,10 @@ examples = [
     {
         "question": "Recomiendame autores que hayan hecho poesías",
         "query": """CALL db.index.fulltext.queryNodes('fullTextCity', 'Upata') YIELD node AS pub MATCH (w:Work)-[:PUBLISHED_IN]->(p:Publication) WHERE p = pub WITH w, CASE WHEN w.publicationDate =~ '.*\\d{{4}}' THEN toInteger(head(apoc.coll.flatten(apoc.text.regexGroups(w.publicationDate, '(\\d{{4}})')))) ELSE null END AS year WHERE year >= 1940 AND year <= 1990 OPTIONAL MATCH (w)-[:HAS_MULTIMEDIA]->(m:Multimedia) WITH w.title AS tituloObra, w.text AS textoObra, w.publicationDate AS fechaPublicacion, year, collect({{link: m.link, description: m.description, type: m.type}}) AS multimedia RETURN {{titulo: tituloObra, texto: textoObra, fechaPublicacion: fechaPublicacion, multimedia: {{imagenes: [item IN multimedia WHERE item.type = 'image' | {{link: item.link, description: item.description}}], videos: [item IN multimedia WHERE item.type = 'video' | {{link: item.link, description: item.description}}], audios: [item IN multimedia WHERE item.type = 'audio' | {{link: item.link, description: item.description}}], documentos: [item IN multimedia WHERE item.type = 'application' | {{link: item.link, description: item.description}}]}}}} AS result ORDER BY year"""
+    },
+    {
+        "question": "Hazme un resumen de la vida de Teresa Coraspe",
+        "query": """CALL db.index.fulltext.queryNodes('fullTextAuthorNames', 'Teresa Coraspe') YIELD node AS author OPTIONAL MATCH (author)-[:CREATED]->(work:Work) OPTIONAL MATCH (critique:Criticism)-[:CRITICIZES_ABOUT]->(author) WITH author, collect(DISTINCT {{tituloObra: work.title, descripcionObra: work.text}}) AS obras, collect(DISTINCT {{tituloCritica: critique.title, descripcionCritica: critique.text}}) AS criticas RETURN {{autor: author.fullName, descripcionAutor: author.text, obras: obras, criticas: criticas}} AS result"""
     }
 ]
 

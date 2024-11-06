@@ -1,9 +1,17 @@
 import os
 from state import GraphState
 from promp_template import create_few_shot_prompt
-from graph_qa_chain import get_graph_qa_chain_biography, get_graph_qa_chain_list, get_graph_qa_chain_multimedia, get_graph_qa_chain_comparison, get_graph_qa_chain_similarity
+from graph_qa_chain import get_graph_qa_chain_biography, get_graph_qa_chain_list, get_graph_qa_chain_multimedia, get_graph_qa_chain_comparison, get_graph_qa_chain_similarity, get_graph_qa_chain_summary
 from classify_question import question_classifier
 from classify_request import request_classifier
+from langchain_openai import ChatOpenAI
+from prompts import qa_prompt_model
+
+llm = ChatOpenAI(
+    model="gpt-4o", 
+    temperature=0,
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
 
 def router_request(state: GraphState):
     '''Returns the next step in the control flow based on the type of request'''
@@ -20,6 +28,18 @@ def router_request(state: GraphState):
 
 def unrecognized_node(state: GraphState):
     print("---UNRECOGNIZED NODE---")
+    question = state["question"]
+    
+    formatted_prompt = qa_prompt_model.format(question=question)
+    
+    messages = [
+        ("system", "Eres un asistente útil."),
+        ("user", formatted_prompt)
+    ]
+    print(formatted_prompt)
+
+    result = llm.invoke(messages)
+    return {"response": result.content, "question":question, "type":"model"}
 
 def prompt_template(state: GraphState):
     '''Returns a dictionary of at least one of the GraphState'''
@@ -51,6 +71,9 @@ def router_question(state: GraphState):
     elif type == "similarity":
         print("---ROUTE QUESTION TO SIMILARITY---")
         return "similiraty_qa"
+    elif type == "summary":
+        print("---ROUTE QUESTION TO SUMMARY---")
+        return "summary_qa"
 
 
 
@@ -144,4 +167,23 @@ def comparison_qa(state: GraphState):
     )
 
     return {"response": result, "question":question, "type": "comparison"}
+
+def summary_qa(state: GraphState):
+    
+    ''' Returns a dictionary of at least one of the GraphState '''
+    ''' Invoke a Graph QA Chain to answer a summary question'''
+    
+    print("---SUMMARY QA---")
+    question = state["question"]
+    
+    graph_qa_chain = get_graph_qa_chain_summary(state)
+    
+    result = graph_qa_chain.invoke(
+        { 
+            "query": question,
+        },
+    )
+
+    return {"response": result, "question":question, "type": "summary"}
+
 
