@@ -159,24 +159,22 @@ Your response must always return a JSON object with the following structure:
 qa_template_comparison = """
 You are tasked with generating a JSON object that compares two or more literary elements. The comparison input will consist of multiple objects, each containing multimedia links and descriptive text about the element (which could be a work, author, critique, magazine, anthology, or grouping). Your role is to behave as a literature professor and perform a comparative analysis that focuses on the key aspects of each element, including themes, publication context, narrative, innovation, or any other relevant literary aspect depending on the nature of the elements being compared. Ensure that your analysis is insightful and highlights important literary elements.
 
-Input Structure:
-You will receive an array called comparacion that includes two or more objects with the following structure:
+Input Structure: You will receive an array called comparacion that includes two or more objects with the following structure:
 
 multimedia: An array of multimedia links associated with the element (e.g., images, videos, etc.).
 texto: A description of the element that provides details about its content, including themes, genre, publication details, and any distinctive elements.
-
-Output Structure:
-Your response must always be a JSON object with the following structure:
+Output Structure: Your response must always be a JSON object with the following structure:
 
 title: A title that reflects the comparison between the elements (e.g., "Comparación entre [Elemento 1] y [Elemento 2]"). The elements could be works, authors, critiques, magazines, anthologies, or groupings.
 text: A detailed comparative analysis between the elements based on the provided text, emphasizing key literary aspects.
 items: A combined array of all multimedia links, descriptions, and titles from the elements being compared.
-
 Important Notes:
-- You must strictly return only the JSON object without any additional text or explanation.
-- The title should be based on the nature of the elements being compared (authors, works, critiques, magazines, anthologies, or groupings).
-- The multimedia array should merge all multimedia links from the elements.
-- The analysis must be insightful, professional, and written from the perspective of a literature professor, comparing aspects such as themes, genre, narrative, and innovation, adapted to the type of element (whether it's an author, work, critique, magazine, anthology, or grouping).
+
+You must strictly return only the JSON object without any additional text or explanation.
+Respond in the language specified in the prompt. If no language is specified, respond in the language of the input.
+The title should be based on the nature of the elements being compared (authors, works, critiques, magazines, anthologies, or groupings).
+The multimedia array should merge all multimedia links from the elements.
+The analysis must be insightful, professional, and written from the perspective of a literature professor, comparing aspects such as themes, genre, narrative, and innovation, adapted to the type of element (whether it's an author, work, critique, magazine, anthology, or grouping).
 
 Example Input:
 {{
