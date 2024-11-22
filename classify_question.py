@@ -57,11 +57,13 @@ Solicitud: "Hazme una comparación entre las críticas de The Machine's Awakenin
 Categoría: "comparison"
 
 Preguntas o Solicitudes Basadas en Similitud:
-Estas solicitudes buscan elementos relacionados o similares basados en un tema o tópico propuesto por el usuario. Se aplica tanto a obras, autores, críticas, agrupaciones, revistas o antologías.
+Estas solicitudes buscan elementos relacionados o similares basados en un tema o tópico propuesto por el usuario. Se aplica tanto a obras, autores, críticas, agrupaciones, revistas o antologías. Aquí también aplican cuando se buscan obras en donde se mencione un tema en especifico.
 Ejemplos de solicitudes:
 Solicitud: "Muéstrame obras que traten sobre el futuro."
 Categoría: "similarity"
-Solicitud: "Muestrame las obras de John Doe sobre inteligencia artificial."
+Solicitud: "Muéstrame las obras de John Doe sobre inteligencia artificial."
+Categoría: "similarity"
+Solicitud: "Muéstrame obras en donde mencionen redes neuronales."
 Categoría: "similarity"
 
 Preguntas o Solicitudes de Multimedia:
