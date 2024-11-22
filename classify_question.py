@@ -110,3 +110,13 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 question_classifier = prompt | structured_llm_router
+
+# Definir una solicitud de prueba
+question = "Cuales son las obras en donde se habla del primer poema de la arepa?"
+
+# Pasar la solicitud al clasificador
+response = question_classifier.invoke({"question": question})
+
+# Mostrar la respuesta
+print("Solicitud:", question)
+print("Categoría clasificada:", response.dict())
