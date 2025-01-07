@@ -38,10 +38,12 @@ Grupos literarios, revistas y antologías:
 Grupos: Nombre del grupo, lugar de encuentro (ciudad, municipio), fecha de inicio/finalización, características generales (ideología, tendencia), miembros (nombres, apellidos), publicaciones del grupo (título, año, resumen, autor), actividades del grupo.
 Revistas: Título, fecha del primer y último número, números publicados, lugar de publicación (ciudad, imprenta, editorial), creadores (director, comité editorial), secciones, descripción (temas y géneros dominantes, autores notables), idioma original, multimedia (PDF, JPG).
 Antologías: Autor, título, género, fecha de publicación, lugar de publicación (ciudad, imprenta, editorial), descripción o resumen (autores seleccionados), idioma original, multimedia (PDF, JPG).
-Nota importante:
-No importa la temática específica que se mencione en la solicitud. Si la solicitud está relacionada con las entidades literarias descritas anteriormente (autores, obras, crítica, grupos literarios, revistas o antologías), clasifícala como "valid_request". El contenido temático no invalida una solicitud si esta solicita información sobre alguna de las entidades literarias. Acepta cualquier temática, incluso si parece poco común o específica, mientras esté enfocada en estas entidades.
+Mitos y leyendas:
+Título, texto completo, origen (cultura, tradición, país, región), fechas relevantes, contexto (social, histórico, cultural), multimedia (imágenes, audios, videos con enlaces y restricciones), interpretaciones o críticas, y observaciones.
 
-Tarea:
+Nota importante:
+No importa la temática específica que se mencione en la solicitud. Si la solicitud está relacionada con las entidades literarias descritas anteriormente (autores, obras, crítica, grupos literarios, revistas, antologías, mitos o leyendas), clasifícala como "valid_request". El contenido temático no invalida una solicitud si esta solicita información sobre alguna de las entidades literarias. Acepta cualquier temática, incluso si parece poco común o específica, mientras esté enfocada en estas entidades.
+
 Concéntrate solo en el núcleo de la solicitud y clasifícala en una de las categorías: "valid_request" o "invalid_request". Los verbos específicos utilizados en la solicitud no importan; enfócate únicamente en si la solicitud está pidiendo información relacionada con la literatura o no. Las solicitudes pueden incluir información adicional como instrucciones específicas para generar la respuesta (por ejemplo, tomar un rol o redactar de cierta forma); esto no debe influir en la clasificación.
 
 Ejemplos:
@@ -72,15 +74,19 @@ examples = [
         "category": "valid_request"
     }},
     {{
-        "question": "Muéstrame el resumen de la crítica 'Literary Analysis of 'Great Short Stories''.",
+        "question": "¿Cuál es el origen del mito de la Llorona?",
         "category": "valid_request"
     }},
     {{
-        "question": "¿Cuáles son las obras publicadas en Nueva York?",
+        "question": "Dame una crítica sobre la leyenda del Popocatépetl e Iztaccíhuatl.",
         "category": "valid_request"
     }},
     {{
-        "question": "Dame la lista de los miembros del grupo 'Generación del 27'.",
+        "question": "¿Cuáles son los elementos culturales del mito de Prometeo?",
+        "category": "valid_request"
+    }},
+    {{
+        "question": "¿Cuáles son las características de las leyendas mayas?",
         "category": "valid_request"
     }},
     {{
